@@ -1,12 +1,18 @@
 server:
   port: 8080
+  error:
+    include-message: always
+    include-binding-errors: always
+    include-stacktrace: always
+    include-exception: true
 
-  spring:
-    datasource:
-      url: ${APP_DATASOURCE_URL:jdbc:postgresql://postgres-db:5432/warehouse_db}
-      username: ${APP_DATASOURCE_USERNAME:warehouse_anas}
-      password: ${APP_DATASOURCE_PASSWORD:anasnak}
-      driver-class-name: org.postgresql.Driver
+spring:
+  datasource:
+    url: ${APP_DATASOURCE_URL:jdbc:postgresql://postgres-db:5432/warehouse_db}
+    username: ${APP_DATASOURCE_USERNAME:warehouse_anas}
+    password: ${APP_DATASOURCE_PASSWORD:anasnak}
+    driver-class-name: org.postgresql.Driver
+
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
@@ -14,9 +20,41 @@ server:
     properties:
       hibernate:
         format_sql: true
+    show-sql: true
+
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: false
+      fail-on-null-for-primitives: true
+    serialization:
+      write-dates-as-timestamps: false
+      indent-output: true
+    default-property-inclusion: NON_NULL
+
+  web:
+    resources:
+      add-mappings: false
+
+springdoc:
+  api-docs:
+    enabled: true
+    path: /v3/api-docs
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+    display-request-duration: true
+    groups-order: ASC
+    operations-sorter: method
+    disable-swagger-default-url: true
+    try-it-out-enabled: true
+  show-actuator: false
 
 logging:
   level:
-    root: INFO
+    root: DEBUG
+    com.progressoft.warehouse: DEBUG
+    org.springframework: DEBUG
+    org.hibernate: DEBUG
     org.hibernate.SQL: DEBUG
-    org.hibernate.type.descriptor.sql: TRACE
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+

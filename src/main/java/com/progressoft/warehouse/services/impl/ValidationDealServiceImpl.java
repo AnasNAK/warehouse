@@ -1,7 +1,6 @@
 package com.progressoft.warehouse.services.impl;
 
-import com.progressoft.warehouse.exceptions.DuplicateRequestException;
-import com.progressoft.warehouse.exceptions.ResourceNotFoundException;
+
 import com.progressoft.warehouse.exceptions.RuleViolationException;
 import com.progressoft.warehouse.services.ValidationDealService;
 import lombok.extern.slf4j.Slf4j;
