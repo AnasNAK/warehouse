@@ -35,6 +35,17 @@ public class GlobalExceptionHandler {
                 null
         );
     }
+    @ExceptionHandler(RuleViolationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handleRuleViolation(RuleViolationException ex, WebRequest request) {
+        return new ErrorResponse(
+                Instant.now(),
+                ex.getMessage(),
+                request.getDescription(false),
+                HttpStatus.BAD_REQUEST.value(),
+                null
+        );
+    }
 
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
