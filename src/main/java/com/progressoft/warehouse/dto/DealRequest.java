@@ -16,15 +16,18 @@ import java.time.Instant;
 @NoArgsConstructor
 public class DealRequest {
 
-    @NotBlank
+    @NotBlank(message = "Deal ID is mandatory")
     private String id;
 
+    @NotBlank(message = "From currency is mandatory")
     @Pattern(regexp = "^[A-Z]{3}$", message = "From currency must be a 3-letter ISO code")
     private String fromCurrency;
 
+    @NotBlank(message = "To currency is mandatory")
     @Pattern(regexp = "^[A-Z]{3}$", message = "To currency must be a 3-letter ISO code")
     private String toCurrency;
 
+    @NotNull(message = "Amount is required")
     @DecimalMin(value = "0.0", inclusive = false, message = "Amount must be greater than 0")
     private BigDecimal amount;
 
@@ -32,3 +35,4 @@ public class DealRequest {
     private Instant timestamp;
 
 }
+
