@@ -1,0 +1,30 @@
+version: "3.9"
+
+services:
+  postgres-db:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_DB: warehouse_db
+      POSTGRES_USER: warehouse_anas
+      POSTGRES_PASSWORD: anasnak
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata-volume:/var/lib/postgresql/data
+
+  warehouse-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - postgres-db
+    environment:
+      APP_DATASOURCE_URL: jdbc:postgresql://postgres-db:5432/warehouse_db
+      APP_DATASOURCE_USERNAME: warehouse_anas
+      APP_DATASOURCE_PASSWORD: anasnak
+    ports:
+      - "9090:8080"
+
+volumes:
+  pgdata-volume:

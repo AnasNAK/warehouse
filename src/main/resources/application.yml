@@ -1,0 +1,22 @@
+server:
+  port: 8080
+
+  spring:
+    datasource:
+      url: ${APP_DATASOURCE_URL:jdbc:postgresql://postgres-db:5432/warehouse_db}
+      username: ${APP_DATASOURCE_USERNAME:warehouse_anas}
+      password: ${APP_DATASOURCE_PASSWORD:anasnak}
+      driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+
+logging:
+  level:
+    root: INFO
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql: TRACE
